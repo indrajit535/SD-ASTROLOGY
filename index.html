@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/images/palm-logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0A0E2A">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="AI Palm Reader">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AI Palm Reader">
+    <meta name="description" content="AI Palm Reader – Tarot & Astrology Guidance App">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#0A0E2A">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AI Palm Reader">
+    <meta property="og:description" content="Tarot & Astrology Guidance App">
+    <meta property="og:image" content="https://yourdomain.com/icon-512x512.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="AI Palm Reader">
+    <meta property="twitter:description" content="Tarot & Astrology Guidance App">
+    <meta property="twitter:image" content="https://yourdomain.com/icon-512x512.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167x167.png">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <!-- Splash Screens for iOS -->
+    <link rel="apple-touch-startup-image" href="/splash/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/splash/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/splash/iphoneplus_splash.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)">
+    
+    <title>AI Palm Reader – Tarot & Astrology Guidance</title>
+    
+    <!-- Font Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS for initial loading -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0A0E2A;
+            color: white;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        #root {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        /* Loading screen styles */
+        .app-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0A0E2A 0%, #1A1F40 50%, #2A1F5A 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .loading-logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite ease-in-out;
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.5);
+        }
+        
+        .loading-logo::before {
+            content: '🖐️';
+            font-size: 50px;
+        }
+        
+        .loading-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+        
+        .loading-subtext {
+            color: #9CA3AF;
+            font-size: 14px;
+            text-align: center;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            border-top-color: #3B82F6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-top: 30px;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 50px rgba(59, 130, 246, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 70px rgba(59, 130, 246, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 0 50px rgba(59, 130, 246, 0.5); }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Hide loading screen when app loads */
+        .app-loaded .app-loading {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        /* Prevent text selection */
+        .no-select {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Remove blue highlight on tap */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body class="no-select">
+    <!-- Loading Screen -->
+    <div class="app-loading">
+        <div class="loading-logo"></div>
+        <div class="loading-text">AI Palm Reader</div>
+        <div class="loading-subtext">Loading your spiritual journey...</div>
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- React App Root -->
+    <div id="root"></div>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        // Remove loading screen when app loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.body.classList.add('app-loaded');
+            }, 1000);
+        });
+        
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js').then(
+                    function(registration) {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    },
+                    function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    }
+                );
+            });
+        }
+        
+        // Handle app installation
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            window.deferredPrompt = deferredPrompt;
+            
+            // Show install button if needed
+            const installEvent = new CustomEvent('pwa:installable', { detail: deferredPrompt });
+            window.dispatchEvent(installEvent);
+        });
+        
+        // Handle app installed
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA installed successfully');
+            window.deferredPrompt = null;
+            
+            // Track installation
+            if (window.gtag) {
+                gtag('event', 'pwa_installed');
+            }
+        });
+        
+        // Handle online/offline status
+        window.addEventListener('online', () => {
+            const event = new CustomEvent('app:online');
+            window.dispatchEvent(event);
+            console.log('App is online');
+        });
+        
+        window.addEventListener('offline', () => {
+            const event = new CustomEvent('app:offline');
+            window.dispatchEvent(event);
+            console.log('App is offline');
+        });
+        
+        // Handle visibility change (app background/foreground)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                const event = new CustomEvent('app:background');
+                window.dispatchEvent(event);
+            } else {
+                const event = new CustomEvent('app:foreground');
+                window.dispatchEvent(event);
+            }
+        });
+        
+        // Prevent context menu on long press
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Handle back button for PWA
+        document.addEventListener('backbutton', function(e) {
+            const event = new CustomEvent('app:backbutton');
+            window.dispatchEvent(event);
+            e.preventDefault();
+        }, false);
+    </script>
+    
+    <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
